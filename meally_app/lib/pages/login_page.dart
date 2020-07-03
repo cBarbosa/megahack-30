@@ -20,7 +20,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     ControllerLogin controllerLogin = Provider.of<ControllerLogin>(context);
-    controllerLogin.getUser();
+    //controllerLogin.getUser();
 
     return Scaffold(
       body: Center(
@@ -74,7 +74,7 @@ class _LoginPageState extends State<LoginPage> {
                               splashColor: Colors.red,
                               onPressed: () {
                                 print("Facebook");
-                                //controllerLogin.handleFacebookSignIn();
+                                controllerLogin.handleFacebookSignIn();
                               },
                             ),
                           ),

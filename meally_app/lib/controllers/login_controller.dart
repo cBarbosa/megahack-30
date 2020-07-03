@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:google_sign_in/google_sign_in.dart';
@@ -75,39 +76,60 @@ abstract class ControllerLoginBase with Store {
     }
   }
 
-  //** LOGIN WITH APPLE *********************************************************************************/
-  handleAppleSignIn() async {}
-
   //** LOGIN WITH FACEBOOK *********************************************************************************/
-  // handleFacebookSignIn() async {
-  //   isLoggging = true;
+  FacebookLogin _fbLogin = new FacebookLogin();
 
-  //   final facebookLogin = FacebookLogin();
-  //   final result = await facebookLogin.logIn(['email']);
+  handleFacebookSignIn() async {
+    isLoggging = true;
 
-  //   switch (result.status) {
-  //     case FacebookLoginStatus.loggedIn:
-  //       final token = result.accessToken.token;
-  //       final graphResponse = await http.get(
-  //           'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email&access_token=${token}');
-  //       final profile = jsonDecode(graphResponse.body);
+    Future<Map> getUserInfo(FacebookLoginResult result) async {
+      final token = result.accessToken.token;
+      final graphResponse = await http.get(
+          'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email,picture&access_token=$token');
 
-  //       print(profile['name']);
-  //       print(profile['email']);
+      return json.decode(graphResponse.body);
+    }
 
-  //       //print(graphResponse.body);
+    _fbLogin.loginBehavior = FacebookLoginBehavior.webViewOnly;
+    try {
+      await _fbLogin.logIn(['email', 'public_profile']).then((result) async {
+        switch (result.status) {
+          case FacebookLoginStatus.loggedIn:
+            final FacebookAccessToken accessToken = result.accessToken;
 
-  //       break;
-  //     case FacebookLoginStatus.cancelledByUser:
-  //       print("Login Cancelado");
-  //       isLoggging = false;
+            getUserInfo(result).then((faceKey) {
+              String photoUrl = "https://graph.facebook.com/" +
+                  faceKey['id'] +
+                  "/picture?height=500";
+              user = User(faceKey['name'], faceKey['email'], photoUrl);
 
-  //       break;
-  //     case FacebookLoginStatus.error:
-  //       print("Login Facebook Error");
-  //       isLoggging = false;
+              print(
+                  "Log Interno: Login Facebook: ${accessToken.token}, ${faceKey['name']}, ${faceKey['email']}");
+            }).whenComplete(() {
+              saveUser();
+              isLoggging = false;
+            });
 
-  //       break;
-  //   }
-  //}
+            break;
+          case FacebookLoginStatus.cancelledByUser:
+            print('Login cancelled by the user.');
+            isLoggging = false;
+
+            break;
+          case FacebookLoginStatus.error:
+            print('Something went wrong with the login process.\n'
+                'Here\'s the error Facebook gave us: ${result.errorMessage}');
+            isLoggging = false;
+
+            break;
+        }
+      }).catchError((e) {
+        print("Log Interno: Login Facebook E: $e");
+        isLoggging = false;
+      });
+    } catch (error) {
+      print("Log Interno: Login Facebook Error: $error");
+      isLoggging = false;
+    }
+  }
 }
