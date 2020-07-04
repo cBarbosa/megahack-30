@@ -219,6 +219,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  freezed_annotation:
+    dependency: transitive
+    description:
+      name: freezed_annotation
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.7.1"
   glob:
     dependency: transitive
     description:
@@ -331,6 +338,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.12.6"
+  mercado_pago_mobile_checkout:
+    dependency: "direct main"
+    description:
+      name: mercado_pago_mobile_checkout
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.2"
   meta:
     dependency: transitive
     description:

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:meally_app/controllers/checkout_controller.dart';
 import 'package:meally_app/pages/login_page.dart';
 import 'package:provider/provider.dart';
 
@@ -18,8 +19,12 @@ class MyApp extends StatelessWidget {
         Provider<ControllerLogin>(
           create: (_) => ControllerLogin(),
         ),
+        Provider<ControllerCheckout>(
+          create: (_) => ControllerCheckout(),
+        ),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Meally',
         theme: ThemeData(
           primarySwatch: Colors.red,
