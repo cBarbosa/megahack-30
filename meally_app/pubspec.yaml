@@ -39,6 +39,8 @@ dependencies:
   shared_preferences: ^0.5.7+3
   flutter_facebook_login: ^3.0.0
   mercado_pago_mobile_checkout: ^0.0.2
+  geolocator: ^5.3.2+2
+
 
 
 
