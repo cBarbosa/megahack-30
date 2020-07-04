@@ -23,22 +23,19 @@ class _LoginPageState extends State<LoginPage> {
     controllerLogin.getUser();
 
     return Scaffold(
+      backgroundColor: Color.fromRGBO(254, 78, 78, 1),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            Observer(
-              builder: (_) {
-                return controllerLogin.user == null
-                    ? Align()
-                    : Column(
-                        children: <Widget>[
-                          FlutterLogo(
-                            size: 100,
-                          ),
-                        ],
-                      );
-              },
+            Column(
+              children: <Widget>[
+                Image.asset("assets/logo_meally.png"),
+                Text(
+                  "Alimente-se, socialize e viva seguro",
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+              ],
             ),
             Observer(
               builder: (_) {
@@ -53,32 +50,42 @@ class _LoginPageState extends State<LoginPage> {
                 }
                 return controllerLogin.isLoggging
                     ? Center(
-                        child: CircularProgressIndicator(),
+                        child: CircularProgressIndicator(
+                          valueColor:
+                              new AlwaysStoppedAnimation<Color>(Colors.white),
+                        ),
                       )
-                    : Column(
-                        children: <Widget>[
-                          Container(
-                            child: GoogleSignInButton(
-                              text: "Entrar com Google",
-                              splashColor: Colors.red,
-                              darkMode: true,
-                              onPressed: () {
-                                print("Google");
-                                controllerLogin.handleGoogleSignIn();
-                              },
+                    : Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.white,
+                        ),
+                        padding: EdgeInsets.all(32),
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                              child: GoogleSignInButton(
+                                text: "Entrar com Google",
+                                splashColor: Colors.red,
+                                darkMode: true,
+                                onPressed: () {
+                                  print("Google");
+                                  controllerLogin.handleGoogleSignIn();
+                                },
+                              ),
                             ),
-                          ),
-                          Container(
-                            child: FacebookSignInButton(
-                              text: "Entrar com Facebook",
-                              splashColor: Colors.red,
-                              onPressed: () {
-                                print("Facebook");
-                                controllerLogin.handleFacebookSignIn();
-                              },
+                            Container(
+                              child: FacebookSignInButton(
+                                text: "Entrar com Facebook",
+                                splashColor: Colors.red,
+                                onPressed: () {
+                                  print("Facebook");
+                                  controllerLogin.handleFacebookSignIn();
+                                },
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       );
               },
             ),

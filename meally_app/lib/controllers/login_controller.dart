@@ -51,6 +51,14 @@ abstract class ControllerLoginBase with Store {
     }
   }
 
+  @action
+  logout() async {
+    _googleSignIn.signOut();
+    user = null;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+  }
+
 //** LOGIN WITH GOOGLE *********************************************************************************/
   GoogleSignIn _googleSignIn = GoogleSignIn(
     scopes: [

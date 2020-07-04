@@ -7,6 +7,7 @@ import 'package:meally_app/models/product.dart';
 import 'package:provider/provider.dart';
 
 import 'checkout_page.dart';
+import 'login_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -63,6 +64,18 @@ class _HomePageState extends State<HomePage> {
                     )
                   : Center();
             },
+          ),
+          Center(
+            child: RaisedButton(
+              child: Text("Sair"),
+              onPressed: () {
+                controllerLogin.logout();
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginPage()),
+                );
+              },
+            ),
           ),
         ],
       ),

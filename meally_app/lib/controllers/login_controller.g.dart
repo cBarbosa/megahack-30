@@ -53,6 +53,20 @@ mixin _$ControllerLogin on ControllerLoginBase, Store {
     return _$getUserAsyncAction.run(() => super.getUser());
   }
 
+  final _$ControllerLoginBaseActionController =
+      ActionController(name: 'ControllerLoginBase');
+
+  @override
+  dynamic logout() {
+    final _$actionInfo = _$ControllerLoginBaseActionController.startAction(
+        name: 'ControllerLoginBase.logout');
+    try {
+      return super.logout();
+    } finally {
+      _$ControllerLoginBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
