@@ -1,3 +1,4 @@
+import 'package:custom_splash/custom_splash.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meally_app/controllers/checkout_controller.dart';
@@ -34,7 +35,15 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.red,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: LoginPage(),
+        home: CustomSplash(
+          imagePath: 'assets/logo_meally.png',
+          backGroundColor: Color.fromRGBO(254, 78, 78, 1),
+          animationEffect: 'zoom-in',
+          logoSize: 200,
+          home: LoginPage(),
+          duration: 2500,
+          type: CustomSplashType.StaticDuration,
+        ),
       ),
     );
   }

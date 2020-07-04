@@ -41,6 +41,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color.fromRGBO(254, 78, 78, 1),
         title: Text("Realizar Checkout"),
         centerTitle: true,
       ),
