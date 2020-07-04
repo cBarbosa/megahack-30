@@ -1,9 +1,10 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:meally_app/controllers/checkout_controller.dart';
 import 'package:meally_app/controllers/location_controller.dart';
 import 'package:meally_app/controllers/login_controller.dart';
-import 'package:meally_app/models/product.dart';
+import 'package:meally_app/widgets/home_widget.dart';
 import 'package:provider/provider.dart';
 
 import 'checkout_page.dart';
@@ -15,70 +16,104 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int _page = 0;
+  GlobalKey _bottomNavigationKey = GlobalKey();
+
+  Widget currentWidget;
+
   @override
   Widget build(BuildContext context) {
-    ControllerCheckout controllerCheckout =
-        Provider.of<ControllerCheckout>(context);
     ControllerLogin controllerLogin = Provider.of<ControllerLogin>(context);
     ControllerLocation controllerLocation =
         Provider.of<ControllerLocation>(context);
 
+    if (_page == 0) {
+      currentWidget = HomeWidget(
+          controllerLocation: controllerLocation,
+          controllerLogin: controllerLogin);
+    }
+
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Center(
-            child: RaisedButton(
-              child: Text("Checkout Page"),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => CheckoutPage()),
-                );
-              },
-            ),
+      bottomNavigationBar: CurvedNavigationBar(
+        backgroundColor: Colors.white,
+        color: Color.fromRGBO(254, 78, 78, 1),
+        buttonBackgroundColor: Color.fromRGBO(254, 78, 78, 1),
+        items: <Widget>[
+          Icon(
+            Icons.home,
+            size: 30,
+            color: Colors.white,
           ),
-          Center(
-            child: RaisedButton(
-              child: Text("ETA"),
-              onPressed: () {
-                controllerLocation.calculateETA("-15.943175,-48.266988");
-              },
-            ),
+          Icon(
+            Icons.search,
+            size: 30,
+            color: Colors.white,
           ),
-          Observer(
-            builder: (_) {
-              return controllerLocation.distance.isNotEmpty &&
-                      controllerLocation.distance.isNotEmpty
-                  ? Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        Center(
-                          child: Text(controllerLocation.distance),
-                        ),
-                        Center(
-                          child: Text(controllerLocation.duration),
-                        ),
-                      ],
-                    )
-                  : Center();
-            },
+          Image.asset(
+            "assets/qr-code.png",
+            height: 40,
+            width: 40,
           ),
-          Center(
-            child: RaisedButton(
-              child: Text("Sair"),
-              onPressed: () {
-                controllerLogin.logout();
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginPage()),
-                );
-              },
-            ),
+          Icon(
+            Icons.person,
+            size: 30,
+            color: Colors.white,
+          ),
+          Icon(
+            Icons.settings,
+            size: 30,
+            color: Colors.white,
           ),
         ],
+        onTap: (index) {
+          setState(() {
+            _page = index;
+            print(_page);
+
+            switch (_page) {
+              case 0:
+                currentWidget = HomeWidget(
+                    controllerLocation: controllerLocation,
+                    controllerLogin: controllerLogin);
+                break;
+              case 1:
+                currentWidget = Container(
+                  color: Colors.white,
+                );
+                break;
+              case 2:
+                currentWidget = Container(
+                  color: Colors.red,
+                );
+                break;
+            }
+          });
+        },
       ),
+      body: Container(color: Colors.blueAccent, child: currentWidget),
     );
+  }
+
+  var _child;
+
+  void _handleNavigationChange(int index) {
+    setState(() {
+      switch (index) {
+        case 0:
+          LoginPage();
+
+          break;
+        case 1:
+          HomePage();
+
+          break;
+      }
+      _child = AnimatedSwitcher(
+        switchInCurve: Curves.easeOut,
+        switchOutCurve: Curves.easeIn,
+        duration: Duration(milliseconds: 500),
+        child: _child,
+      );
+    });
   }
 }
