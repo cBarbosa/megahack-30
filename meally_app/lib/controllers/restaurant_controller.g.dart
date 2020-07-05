@@ -54,6 +54,21 @@ mixin _$ControllerRestaurant on ControllerRestaurantBase, Store {
     });
   }
 
+  final _$menuAtom = Atom(name: 'ControllerRestaurantBase.menu');
+
+  @override
+  List<Menu> get menu {
+    _$menuAtom.reportRead();
+    return super.menu;
+  }
+
+  @override
+  set menu(List<Menu> value) {
+    _$menuAtom.reportWrite(value, super.menu, () {
+      super.menu = value;
+    });
+  }
+
   final _$getRestaurantsAsyncAction =
       AsyncAction('ControllerRestaurantBase.getRestaurants');
 
@@ -62,12 +77,20 @@ mixin _$ControllerRestaurant on ControllerRestaurantBase, Store {
     return _$getRestaurantsAsyncAction.run(() => super.getRestaurants());
   }
 
+  final _$getMenuAsyncAction = AsyncAction('ControllerRestaurantBase.getMenu');
+
+  @override
+  Future getMenu(int id) {
+    return _$getMenuAsyncAction.run(() => super.getMenu(id));
+  }
+
   @override
   String toString() {
     return '''
 restaurants: ${restaurants},
 distances: ${distances},
-durations: ${durations}
+durations: ${durations},
+menu: ${menu}
     ''';
   }
 }

@@ -200,10 +200,12 @@ class _HomeWidgetState extends State<HomeWidget> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => RestaurantPage(
-                                controllerLocation: widget.controllerLocation,
-                                controllerLogin: widget.controllerLogin,
-                                controllerRestaurant:
-                                    widget.controllerRestaurant),
+                              controllerLogin: widget.controllerLogin,
+                              restaurant: widget
+                                  .controllerRestaurant.restaurants[index],
+                              distance:
+                                  widget.controllerRestaurant.distances[index],
+                            ),
                           ));
                     },
                   );
