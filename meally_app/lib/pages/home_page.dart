@@ -1,14 +1,9 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:meally_app/controllers/checkout_controller.dart';
 import 'package:meally_app/controllers/location_controller.dart';
 import 'package:meally_app/controllers/login_controller.dart';
 import 'package:meally_app/widgets/home_widget.dart';
 import 'package:provider/provider.dart';
-
-import 'checkout_page.dart';
-import 'login_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -17,7 +12,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _page = 0;
-  GlobalKey _bottomNavigationKey = GlobalKey();
 
   Widget currentWidget;
 
@@ -78,12 +72,22 @@ class _HomePageState extends State<HomePage> {
                 break;
               case 1:
                 currentWidget = Container(
-                  color: Colors.white,
+                  color: Colors.yellow,
                 );
                 break;
               case 2:
                 currentWidget = Container(
                   color: Colors.red,
+                );
+                break;
+              case 3:
+                currentWidget = Container(
+                  color: Colors.purple,
+                );
+                break;
+              case 4:
+                currentWidget = Container(
+                  color: Colors.green,
                 );
                 break;
             }
@@ -92,28 +96,5 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Container(color: Colors.blueAccent, child: currentWidget),
     );
-  }
-
-  var _child;
-
-  void _handleNavigationChange(int index) {
-    setState(() {
-      switch (index) {
-        case 0:
-          LoginPage();
-
-          break;
-        case 1:
-          HomePage();
-
-          break;
-      }
-      _child = AnimatedSwitcher(
-        switchInCurve: Curves.easeOut,
-        switchOutCurve: Curves.easeIn,
-        duration: Duration(milliseconds: 500),
-        child: _child,
-      );
-    });
   }
 }
