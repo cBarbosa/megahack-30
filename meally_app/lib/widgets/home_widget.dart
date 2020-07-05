@@ -211,56 +211,56 @@ class _HomeWidgetState extends State<HomeWidget> {
                   );
                 }),
           ),
-          Center(
-            child: RaisedButton(
-              child: Text("Checkout Page"),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => CheckoutPage()),
-                );
-              },
-            ),
-          ),
-          Center(
-            child: RaisedButton(
-              child: Text("ETA"),
-              onPressed: () {
-                widget.controllerLocation.calculateETA("-15.943175,-48.266988");
-              },
-            ),
-          ),
-          Observer(
-            builder: (_) {
-              return widget.controllerLocation.distance.isNotEmpty &&
-                      widget.controllerLocation.distance.isNotEmpty
-                  ? Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        Center(
-                          child: Text(widget.controllerLocation.distance),
-                        ),
-                        Center(
-                          child: Text(widget.controllerLocation.duration),
-                        ),
-                      ],
-                    )
-                  : Center();
-            },
-          ),
-          Center(
-            child: RaisedButton(
-              child: Text("Sair"),
-              onPressed: () {
-                widget.controllerLogin.logout();
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginPage()),
-                );
-              },
-            ),
-          ),
+          // Center(
+          //   child: RaisedButton(
+          //     child: Text("Checkout Page"),
+          //     onPressed: () {
+          //       Navigator.push(
+          //         context,
+          //         MaterialPageRoute(builder: (context) => CheckoutPage()),
+          //       );
+          //     },
+          //   ),
+          // ),
+          // Center(
+          //   child: RaisedButton(
+          //     child: Text("ETA"),
+          //     onPressed: () {
+          //       widget.controllerLocation.calculateETA("-15.943175,-48.266988");
+          //     },
+          //   ),
+          // ),
+          // Observer(
+          //   builder: (_) {
+          //     return widget.controllerLocation.distance.isNotEmpty &&
+          //             widget.controllerLocation.distance.isNotEmpty
+          //         ? Row(
+          //             crossAxisAlignment: CrossAxisAlignment.center,
+          //             mainAxisAlignment: MainAxisAlignment.spaceAround,
+          //             children: <Widget>[
+          //               Center(
+          //                 child: Text(widget.controllerLocation.distance),
+          //               ),
+          //               Center(
+          //                 child: Text(widget.controllerLocation.duration),
+          //               ),
+          //             ],
+          //           )
+          //         : Center();
+          //   },
+          // ),
+          // Center(
+          //   child: RaisedButton(
+          //     child: Text("Sair"),
+          //     onPressed: () {
+          //       widget.controllerLogin.logout();
+          //       Navigator.pushReplacement(
+          //         context,
+          //         MaterialPageRoute(builder: (context) => LoginPage()),
+          //       );
+          //     },
+          //   ),
+          // ),
         ],
       ),
     );

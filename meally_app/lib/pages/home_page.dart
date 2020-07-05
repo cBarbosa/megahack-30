@@ -4,6 +4,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:meally_app/controllers/location_controller.dart';
 import 'package:meally_app/controllers/login_controller.dart';
 import 'package:meally_app/controllers/restaurant_controller.dart';
+import 'package:meally_app/widgets/booking_widget.dart';
 import 'package:meally_app/widgets/home_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -110,8 +111,10 @@ class _HomePageState extends State<HomePage> {
                 );
                 break;
               case 2:
-                currentWidget = Container(
-                  color: Colors.red,
+                currentWidget = BookingWidget(
+                  controllerLocation: controllerLocation,
+                  controllerLogin: controllerLogin,
+                  controllerRestaurant: controllerRestaurant,
                 );
                 break;
               case 3:

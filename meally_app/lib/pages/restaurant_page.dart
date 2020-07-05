@@ -4,6 +4,7 @@ import 'package:meally_app/controllers/location_controller.dart';
 import 'package:meally_app/controllers/login_controller.dart';
 import 'package:meally_app/controllers/restaurant_controller.dart';
 import 'package:meally_app/models/restaurant.dart';
+import 'package:meally_app/pages/booking_page.dart';
 import 'package:meally_app/pages/checkout_page.dart';
 import 'package:meally_app/pages/login_page.dart';
 
@@ -103,7 +104,16 @@ class _RestaurantPageState extends State<RestaurantPage> {
                   "Reservar uma  mesa",
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BookingPage(
+                        restaurant: widget.restaurant,
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
             Padding(

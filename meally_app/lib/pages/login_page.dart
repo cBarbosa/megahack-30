@@ -30,9 +30,12 @@ class _LoginPageState extends State<LoginPage> {
           children: <Widget>[
             Column(
               children: <Widget>[
-                Image.asset("assets/logo_meally.png"),
+                Padding(
+                  padding: const EdgeInsets.all(32.0),
+                  child: Image.asset("assets/logo_meally.png"),
+                ),
                 Text(
-                  "Alimente-se, socialize e viva seguro",
+                  "Alimente-se e socialize de forma segura",
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
               ],

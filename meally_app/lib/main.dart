@@ -1,6 +1,7 @@
 import 'package:custom_splash/custom_splash.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:meally_app/controllers/booking_controller.dart';
 import 'package:meally_app/controllers/checkout_controller.dart';
 import 'package:meally_app/controllers/location_controller.dart';
 import 'package:meally_app/controllers/restaurant_controller.dart';
@@ -30,6 +31,9 @@ class MyApp extends StatelessWidget {
         ),
         Provider<ControllerRestaurant>(
           create: (_) => ControllerRestaurant(),
+        ),
+        Provider<ControllerBooking>(
+          create: (_) => ControllerBooking(),
         ),
       ],
       child: MaterialApp(
