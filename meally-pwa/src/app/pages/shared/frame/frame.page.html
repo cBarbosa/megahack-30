@@ -1,0 +1,18 @@
+<ion-menu>
+  <ion-content padding>
+    <app-user-card></app-user-card>
+    <ion-list lines="none">
+      <ion-item-divider>
+        <ion-label>&nbsp;</ion-label>
+      </ion-item-divider>
+      <ion-item class="clickable" (click)="goToPage('')" detail>
+        <ion-icon slot="start" color="light" name="home"></ion-icon> Home
+      </ion-item>
+      <ion-item class="clickable" (click)="goToPage('orders')" detail>
+        <ion-icon slot="start" color="light" name="list"></ion-icon> Pedidos
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-router-outlet main></ion-router-outlet>

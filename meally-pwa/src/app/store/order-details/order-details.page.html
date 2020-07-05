@@ -1,0 +1,84 @@
+<app-navbar></app-navbar>
+
+<ion-content padding *ngIf="!order">
+  <app-loading></app-loading>
+</ion-content>
+
+<ion-content padding *ngIf="order">
+  <ion-list lines="none">
+    <ion-item>
+      <ion-label>
+        <small>Pedido</small><br>
+        <strong>{{ order.number }}</strong>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <small>Data</small><br>
+        <strong>{{ order.date | date: 'dd/MM/yyyy' }}</strong>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <small>Total</small><br>
+        <strong>{{ order.total/100 | currency: 'BRL' }}</strong>
+      </ion-label>
+    </ion-item>
+    <ion-item detail class="clickable">
+      <ion-label>
+        <small>Cliente</small><br>
+        <strong>{{ order.customer?.name }}</strong>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <small>Situação</small><br>
+        <strong>{{ translateOrderStatus(order.status) }}</strong>
+      </ion-label>
+      <h1 slot="end">
+        <app-order-status-badge [status]="order.status"></app-order-status-badge>
+      </h1>
+    </ion-item>
+  </ion-list>
+
+  <hr>
+
+  <p class="text-right">
+    <ion-button color="success" [disabled]="order.status!='waiting_payment'">Confirmar Pagamento</ion-button>
+
+    <ion-button color="primary" [disabled]="!isManager()">Editar</ion-button>
+
+    <ion-button color="danger" [disabled]="!isManager()">Cancelar Pedido</ion-button>
+  </p>
+
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Itens do Pedido</ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let item of order.items">
+      <ion-label>
+        <strong>{{ item.code }}</strong><br>
+        {{ item.title }}
+      </ion-label>
+      <h4 slot="end">{{ item.price/100 | currency: 'BRL'}}</h4>
+    </ion-item>
+    <ion-list-header>
+      <ion-label>Frete</ion-label>
+    </ion-list-header>
+    <ion-item>
+      <h3 slot="end">{{ order.deliveryFee/100 | currency: 'BRL'}}</h3>
+    </ion-item>
+    <ion-list-header>
+      <ion-label>Desconto</ion-label>
+    </ion-list-header>
+    <ion-item>
+      <h3 slot="end">{{ order.discount/100 | currency: 'BRL'}}</h3>
+    </ion-item>
+    <ion-list-header>
+      <ion-label>Total</ion-label>
+    </ion-list-header>
+    <ion-item>
+      <h1 slot="end">{{ order.total/100 | currency: 'BRL'}}</h1>
+    </ion-item>
+  </ion-list>
+</ion-content>
