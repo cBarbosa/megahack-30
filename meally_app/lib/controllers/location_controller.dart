@@ -43,7 +43,7 @@ abstract class ControllerLocationBase with Store {
   }
 
   @action
-  calculateETA(String destination) async {
+  Future<List<String>> calculateETA(String destination) async {
     await getLocation();
 
     _init();
@@ -57,6 +57,8 @@ abstract class ControllerLocationBase with Store {
 
       distance = response.data['routes'][0]['legs'][0]['distance']['text'];
       duration = response.data['routes'][0]['legs'][0]['duration']['text'];
+
+      return [distance, duration];
 
       print("LOG - SEND GET ETA - DATA -> ${response.data}");
       print("LOG - SEND GET ETA - CODE -> ${response.statusCode}");

@@ -1,7 +1,9 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:meally_app/controllers/location_controller.dart';
 import 'package:meally_app/controllers/login_controller.dart';
+import 'package:meally_app/controllers/restaurant_controller.dart';
 import 'package:meally_app/widgets/home_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -10,10 +12,39 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
+ControllerRestaurant controllerRestaurant = ControllerRestaurant();
+ControllerLocation controllerLocation = ControllerLocation();
+
 class _HomePageState extends State<HomePage> {
   int _page = 0;
 
   Widget currentWidget;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    controllerRestaurant.getRestaurants().whenComplete(() async {
+      List<String> distances = [];
+      List<String> durations = [];
+      for (int i = 0; i < controllerRestaurant.restaurants.length;) {
+        await controllerLocation
+            .calculateETA(
+                "${controllerRestaurant.restaurants[i].coordinate.latitude},${controllerRestaurant.restaurants[i].coordinate.longitude}")
+            .whenComplete(() {
+          i++;
+        }).then((value) async {
+          distances.add(value[0]);
+          durations.add(value[1]);
+        }).whenComplete(() {});
+
+        //print("==== $teste");
+      }
+      controllerRestaurant.distances = distances;
+      controllerRestaurant.durations = durations;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +55,8 @@ class _HomePageState extends State<HomePage> {
     if (_page == 0) {
       currentWidget = HomeWidget(
           controllerLocation: controllerLocation,
-          controllerLogin: controllerLogin);
+          controllerLogin: controllerLogin,
+          controllerRestaurant: controllerRestaurant);
     }
 
     return Scaffold(
@@ -67,8 +99,10 @@ class _HomePageState extends State<HomePage> {
             switch (_page) {
               case 0:
                 currentWidget = HomeWidget(
-                    controllerLocation: controllerLocation,
-                    controllerLogin: controllerLogin);
+                  controllerLocation: controllerLocation,
+                  controllerLogin: controllerLogin,
+                  controllerRestaurant: controllerRestaurant,
+                );
                 break;
               case 1:
                 currentWidget = Container(
@@ -94,7 +128,15 @@ class _HomePageState extends State<HomePage> {
           });
         },
       ),
-      body: Container(color: Colors.blueAccent, child: currentWidget),
+      body: Observer(builder: (_) {
+        print("======== ${controllerRestaurant.distances}");
+        return Container(
+            child: controllerRestaurant.distances.isEmpty
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : currentWidget);
+      }),
     );
   }
 }

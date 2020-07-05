@@ -73,7 +73,7 @@ mixin _$ControllerLocation on ControllerLocationBase, Store {
       AsyncAction('ControllerLocationBase.calculateETA');
 
   @override
-  Future calculateETA(String destination) {
+  Future<List<String>> calculateETA(String destination) {
     return _$calculateETAAsyncAction.run(() => super.calculateETA(destination));
   }
 
