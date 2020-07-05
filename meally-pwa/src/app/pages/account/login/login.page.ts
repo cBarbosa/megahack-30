@@ -46,6 +46,25 @@ export class LoginPage implements OnInit {
 
     this
       .service
+      .getUserByEmail(this.form.value.username)
+      .subscribe(
+        (res: UserModel) => {
+
+          if(res.password === this.form.value.password) {
+            SecurityUtil.set(res);
+            this.navCtrl.navigateRoot('/');
+          }
+
+        },
+        (err) => {
+          this.showError('Usuário ou senha inválidos');
+          
+        }), () => {
+          loading.dismiss();
+        };
+
+    this
+      .service
       .authenticate(this.form.value)
       .subscribe(
         (res: UserModel) => {

@@ -1,3 +1,4 @@
+
 export class UserModel {
     constructor(
         public userId: number,
@@ -7,8 +8,19 @@ export class UserModel {
         public photo: string,
         public role: string,
         public password: string,
-        // public nickname: string,
+        public restaurant: RestaurantModel
     ) {
 
     }
 }
+
+export class RestaurantModel {
+    constructor(
+        public restaurantId: number,
+        public name: string,
+        public photo: string,
+    ) {
+
+    }
+}
+

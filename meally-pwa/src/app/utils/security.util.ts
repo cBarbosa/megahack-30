@@ -1,6 +1,7 @@
 import { UserModel } from '../models/user.model';
 
 export class SecurityUtil {
+
     public static set(user: UserModel) {
         const data = JSON.stringify(user);
         localStorage.setItem('meally.data', btoa(data));
@@ -24,17 +25,17 @@ export class SecurityUtil {
             return false;
     }
 
-    public static isInRole(role: string): boolean {
+    public static isInRole(roleStr: string): boolean {
         const user = this.get();
 
         if (!user) 
             return false;
 
-        if (!user.role || user.role === '') 
+        if (user.role === '') 
             return false;
 
         // return user.roles.includes(role);
-        return user.role === role;
+        return user.role === roleStr;
     }
 
     public static clear() {

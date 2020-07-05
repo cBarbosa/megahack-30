@@ -136,8 +136,8 @@ namespace meally_api.Data
         public Order Insert(Order order)
         {
             var query = @"
-                    Insert Into `Order`(RestaurantId, CustomerId, Amount, Quantity, Status, StatusCode, DateCreated, DateUpdated)
-                    Values(@RestaurantId, @CustomerId, @Amount, @Quantity, @Status, @StatusCode, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+                    Insert Into `Order`(RestaurantId, CustomerId, TransactionId, Amount, Quantity, Status, StatusCode, DateCreated, DateUpdated)
+                    Values(@RestaurantId, @CustomerId, @TransactionId, @Amount, @Quantity, @Status, @StatusCode, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
                     SELECT LAST_INSERT_ID();
                     ;";
 
@@ -146,6 +146,7 @@ namespace meally_api.Data
             {
                 order.Restaurant.RestaurantId,
                 order.Customer.CustomerId,
+                order.TransactionId,
                 order.Amount,
                 order.Quantity,
                 order.Status,

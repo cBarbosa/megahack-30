@@ -9,6 +9,7 @@ export class AuthorizedGuard implements CanActivate {
 
     canActivate() {
         const user = SecurityUtil.get();
+        
         if (!user) {
             this.router.navigate(['/login']);
             return false;

@@ -9,19 +9,19 @@
     <ion-item>
       <ion-label>
         <small>Pedido</small><br>
-        <strong>{{ order.number }}</strong>
+        <strong>{{ order.orderId }}</strong>
       </ion-label>
     </ion-item>
     <ion-item>
       <ion-label>
         <small>Data</small><br>
-        <strong>{{ order.date | date: 'dd/MM/yyyy' }}</strong>
+        <strong>{{ order.dateCreated | date: 'dd/MM/yyyy' }}</strong>
       </ion-label>
     </ion-item>
     <ion-item>
       <ion-label>
         <small>Total</small><br>
-        <strong>{{ order.total/100 | currency: 'BRL' }}</strong>
+        <strong>{{ order.amount | currency: 'BRL' }}</strong>
       </ion-label>
     </ion-item>
     <ion-item detail class="clickable">
@@ -33,7 +33,7 @@
     <ion-item>
       <ion-label>
         <small>Situação</small><br>
-        <strong>{{ translateOrderStatus(order.status) }}</strong>
+        <strong>{{ translateOrderStatus(order.statusCode) }}</strong>
       </ion-label>
       <h1 slot="end">
         <app-order-status-badge [status]="order.status"></app-order-status-badge>
@@ -58,9 +58,9 @@
     <ion-item *ngFor="let item of order.items">
       <ion-label>
         <strong>{{ item.code }}</strong><br>
-        {{ item.title }}
+        {{ item.name }}
       </ion-label>
-      <h4 slot="end">{{ item.price/100 | currency: 'BRL'}}</h4>
+      <h4 slot="end">{{ item.amount | currency: 'BRL'}}</h4>
     </ion-item>
     <ion-list-header>
       <ion-label>Frete</ion-label>
@@ -78,7 +78,7 @@
       <ion-label>Total</ion-label>
     </ion-list-header>
     <ion-item>
-      <h1 slot="end">{{ order.total/100 | currency: 'BRL'}}</h1>
+      <h1 slot="end">{{ order.amount | currency: 'BRL'}}</h1>
     </ion-item>
   </ion-list>
 </ion-content>

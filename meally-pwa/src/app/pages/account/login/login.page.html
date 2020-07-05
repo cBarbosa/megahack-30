@@ -1,9 +1,37 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>login</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-
+<ion-content class="ion-padding">
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size-md="6">
+        <form [formGroup]="form">
+          <br>
+          <p text-center class="animated fadeIn">
+            <img src="assets/meally.png" alt="MealLy" width="150">
+          </p>
+          <br>
+          <ion-list lines="none" class="animated fadeIn">
+            <ion-item>
+              <ion-input type="text" maxlength="20" placeholder="Usuário" formControlName="username"
+                autocomplete="username" (keyup.enter)="submit()">
+              </ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input [type]="hide ? 'password' : 'text'" placeholder="Senha" formControlName="password"
+                autocomplete="password" (keyup.enter)="submit()">
+              </ion-input>
+              <ion-icon class="clickable" [name]="hide ? 'eye' : 'eye-off'" (click)="toggleHide()">
+              </ion-icon>
+            </ion-item>
+          </ion-list>
+          <br>
+          <ion-button expand="full" size="large" class="animated fadeIn" [disabled]="!form.valid"
+            (click)="submit()">
+            Entrar
+          </ion-button>
+          <ion-button fill="clear" expand="full" class="animated fadeIn" (click)="resetPassword()">ESQUECI
+            MINHA SENHA
+          </ion-button>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { FramePage } from './pages/shared/frame/frame.page';
+import { AuthorizedGuard } from './guards/authorized.guard';
 
 // const routes: Routes = [
 //   {
@@ -24,7 +25,7 @@ const routes: Routes = [
   {
     path: '',
     component: FramePage,
-    // canActivate: [AuthorizedGuard],
+    canActivate: [AuthorizedGuard],
     children: [
       { path: '', loadChildren: './pages/home/home.module#HomePageModule' },
       { path: 'orders', loadChildren: './pages/store/orders/orders.module#OrdersPageModule' },

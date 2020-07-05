@@ -1,4 +1,6 @@
+
 export class StatusUtil {
+
     public static convert(status: string): string {
         switch (status) {
             case 'confirmed': return 'Confirmada';
@@ -9,4 +11,5 @@ export class StatusUtil {
             default: return 'Confirmada'
         }
     }
+
 }

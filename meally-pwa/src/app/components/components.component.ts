@@ -19,7 +19,7 @@ import { UserCardComponent } from './user-card/user-card.component';
   imports: [
     CommonModule,
     IonicModule,
-    NavbarComponent
+    // NavbarComponent
   ],
   exports: [
     NavbarComponent,
