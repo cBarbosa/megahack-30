@@ -31,14 +31,6 @@ const routes: Routes = [
       { path: 'orders/:number', loadChildren: './pages/store/order-details/order-details.module#OrderDetailsPageModule' },
     ]
   },
-  {
-    path: 'orders',
-    loadChildren: () => import('./store/orders/orders.module').then( m => m.OrdersPageModule)
-  },
-  {
-    path: 'order-details',
-    loadChildren: () => import('./store/order-details/order-details.module').then( m => m.OrderDetailsPageModule)
-  },
 ];
 
 @NgModule({
