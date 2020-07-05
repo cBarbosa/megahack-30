@@ -33,9 +33,13 @@ namespace meally_api
         {
             services.AddScoped<IRestaurantService, RestaurantService>();
             services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IQueueService, QueueService>();
 
             services.AddSingleton<IRestaurantDAO, RestaurantDAO>();
             services.AddSingleton<IOrderDAO, OrderDAO>();
+            services.AddSingleton<IUserDAO, UserDAO>();
+            services.AddSingleton<IQueueDAO, QueueDAO>();
 
             services.AddCors();
             services.AddControllers().AddJsonOptions(options =>

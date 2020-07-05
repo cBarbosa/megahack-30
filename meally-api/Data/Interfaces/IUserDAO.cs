@@ -6,5 +6,6 @@ namespace meally_api.Data.Interfaces
     {
         User GetByEmail(string email);
         void Save(User user);
+        User Insert(User user);
     }
 }

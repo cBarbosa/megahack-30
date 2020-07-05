@@ -13,5 +13,7 @@ namespace meally_api.Domain
         public DateTime? DateCanceled { get; set; }
         public DateTime? DateFinished { get; set; }
         public DateTime DateCreated { get; set; }
+
+        public virtual Restaurant Restaurant { get; set; }
     }
 }
