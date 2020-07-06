@@ -113,7 +113,7 @@ class _BookingDatePageState extends State<BookingDatePage> {
                                 child: GestureDetector(
                                   child: Container(
                                     height: 50,
-                                    width: 80,
+                                    width: 100,
                                     decoration: BoxDecoration(
                                       color: booking == "12:00 - 13:00"
                                           ? Color.fromRGBO(254, 78, 78, 1)
@@ -146,7 +146,7 @@ class _BookingDatePageState extends State<BookingDatePage> {
                                 child: GestureDetector(
                                   child: Container(
                                     height: 50,
-                                    width: 80,
+                                    width: 100,
                                     decoration: BoxDecoration(
                                       color: booking == "18:00 - 19:00"
                                           ? Color.fromRGBO(254, 78, 78, 1)
@@ -184,7 +184,7 @@ class _BookingDatePageState extends State<BookingDatePage> {
                                 child: GestureDetector(
                                   child: Container(
                                     height: 50,
-                                    width: 80,
+                                    width: 100,
                                     decoration: BoxDecoration(
                                       color: booking == "18:30 - 20:00"
                                           ? Color.fromRGBO(254, 78, 78, 1)
@@ -217,7 +217,7 @@ class _BookingDatePageState extends State<BookingDatePage> {
                                 child: GestureDetector(
                                   child: Container(
                                     height: 50,
-                                    width: 80,
+                                    width: 100,
                                     decoration: BoxDecoration(
                                       color: booking == "20:00 - 21:30"
                                           ? Color.fromRGBO(254, 78, 78, 1)

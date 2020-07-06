@@ -84,7 +84,7 @@ class _OrderPageState extends State<OrderPage> {
                                 elevation: 5,
                                 child: ClipPath(
                                   child: Container(
-                                    height: 90,
+                                    height: 200,
                                     decoration: BoxDecoration(
                                         border: Border.all(
                                             color:
@@ -96,7 +96,7 @@ class _OrderPageState extends State<OrderPage> {
                                             controllerRestaurant
                                                 .menu[index].photo,
                                             fit: BoxFit.cover,
-                                            height: 100,
+                                            height: 60,
                                             width: 180),
                                         Expanded(
                                           child: Column(

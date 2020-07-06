@@ -133,7 +133,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                       style: TextStyle(
                                           color: Color.fromRGBO(254, 78, 78, 1),
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 24),
+                                          fontSize: 20),
                                     ),
                                     Row(
                                       mainAxisAlignment:
@@ -178,8 +178,11 @@ class _HomeWidgetState extends State<HomeWidget> {
                                           Icons.timer,
                                           color: Color.fromRGBO(254, 78, 78, 1),
                                         ),
-                                        Text(widget.controllerRestaurant
-                                            .durations[index]),
+                                        Text(
+                                          widget.controllerRestaurant
+                                              .durations[index]
+                                              .replaceAll("hour", "h"),
+                                        ),
                                       ],
                                     ),
                                   ],
