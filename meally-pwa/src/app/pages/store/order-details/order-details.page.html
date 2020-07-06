@@ -57,22 +57,22 @@
     </ion-list-header>
     <ion-item *ngFor="let item of order.items">
       <ion-label>
-        <strong>{{ item.code }}</strong><br>
-        {{ item.name }}
+        <strong>{{ item.meal.code }}</strong><br>
+        {{ item.meal.name }}
       </ion-label>
-      <h4 slot="end">{{ item.amount | currency: 'BRL'}}</h4>
+      <h4 slot="end">{{ item.meal.price | currency: 'BRL'}}</h4>
     </ion-item>
     <ion-list-header>
       <ion-label>Frete</ion-label>
     </ion-list-header>
     <ion-item>
-      <h3 slot="end">{{ order.deliveryFee/100 | currency: 'BRL'}}</h3>
+      <h3 slot="end">{{ 5.0 | currency: 'BRL'}}</h3>
     </ion-item>
     <ion-list-header>
       <ion-label>Desconto</ion-label>
     </ion-list-header>
     <ion-item>
-      <h3 slot="end">{{ order.discount/100 | currency: 'BRL'}}</h3>
+      <h3 slot="end">{{ order.amount - 5.0 | currency: 'BRL'}}</h3>
     </ion-item>
     <ion-list-header>
       <ion-label>Total</ion-label>

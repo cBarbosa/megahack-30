@@ -23,7 +23,7 @@ export class DataService {
   public getMonthlySalesChartData() {
     return this.http.get(`${this.baseUrl}/orders`);
   }
-
+  
   public getOrders() {
     let restaurantId = SecurityUtil.get().restaurant.restaurantId;
     return this.http.get(`${this.baseUrl}/order/restaurant/${restaurantId}`);
@@ -31,5 +31,10 @@ export class DataService {
 
   public getOrder(order: string) {
     return this.http.get(`${this.baseUrl}/order/${order}`);
+  }
+  
+  public getQueue() {
+    let restaurantId = SecurityUtil.get().restaurant.restaurantId;
+    return this.http.get(`${this.baseUrl}/queue/restaurant/${restaurantId}`);
   }
 }

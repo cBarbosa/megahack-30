@@ -6,10 +6,13 @@
         <ion-label>&nbsp;</ion-label>
       </ion-item-divider>
       <ion-item class="clickable" (click)="goToPage('')" detail>
-        <ion-icon slot="start" color="light" name="home"></ion-icon> Home
+        <ion-icon slot="start" name="home"></ion-icon> Home
       </ion-item>
       <ion-item class="clickable" (click)="goToPage('orders')" detail>
-        <ion-icon slot="start" color="light" name="list"></ion-icon> Pedidos
+        <ion-icon slot="start" name="list"></ion-icon> Pedidos
+      </ion-item>
+      <ion-item class="clickable" (click)="goToPage('queue')" detail>
+        <ion-icon slot="start" name="list"></ion-icon> Reserva
       </ion-item>
     </ion-list>
   </ion-content>

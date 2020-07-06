@@ -3,7 +3,7 @@
 </div>
 
 <div *ngIf="orders">
-  <ion-searchbar color="light" placeholder="Filtrar..."></ion-searchbar>
+  <ion-searchbar placeholder="Filtrar..."></ion-searchbar>
   <ion-list>
     <ion-item class="clickable" *ngFor="let order of orders" (click)="goToOrder(order.orderId)">
       <h1 slot="start">
