@@ -28,7 +28,7 @@ namespace meally_api.Data
                             Restaurant.Coordinate_Latitude Latitude,
                             Restaurant.Coordinate_Longitude Longitude
                         From User
-                            Inner Join Restaurant On Restaurant.RestaurantId = `Order`.RestaurantId
+                            Inner Join Restaurant On Restaurant.RestaurantId = User.RestaurantId
                         Where User.Email = @email
                     ;";
 
