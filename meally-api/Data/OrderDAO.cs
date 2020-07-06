@@ -3,6 +3,7 @@ using meally_api.Data.Interfaces;
 using meally_api.Domain;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -66,7 +67,18 @@ namespace meally_api.Data
                         var items = GetItemsByOrderId(order.OrderId);
                         if (items.Count() > 0)
                         {
-                            order.Items = items;
+                            order.Items = items.Select(x => new OrderItems {
+                                Amount = x.Amount,
+                                Quantity = x.Quantity,
+                                Meal = new Meal
+                                {
+                                    Code = x.Meal.Code,
+                                    Description = x.Meal.Description,
+                                    Name = x.Meal.Name,
+                                    Photo = x.Meal.Photo,
+                                    Price = x.Meal.Price
+                                }
+                            });
                         }
                         return order;
                     }, new { id }, splitOn: "OrderId, CustomerId, RestaurantId, Latitude")
@@ -105,7 +117,6 @@ namespace meally_api.Data
                         {
                             order.Customer = customer;
                         }
-
                         return order;
                     }, new { id }, splitOn: "OrderId, CustomerId")
                     .ToList();
@@ -129,15 +140,26 @@ namespace meally_api.Data
                         Where OrderItems.OrderId = @id
                     ;";
 
-            using MySqlConnection conexaoBD = new MySqlConnection(connectionString);
-            return conexaoBD.Query<OrderItems>(query, new { id }).ToList();
+            using (MySqlConnection conexaoBD = new MySqlConnection(connectionString))
+            {
+                return conexaoBD.Query<OrderItems, Meal, OrderItems>(query,
+                    (orderItem, meal) =>
+                    {
+                        if (meal != null)
+                        {
+                            orderItem.Meal = meal;
+                        }
+                        return orderItem;
+                    }, new { id }, splitOn: "Quantity, MealId")
+                    .ToList();
+            };
         }
 
         public Order Insert(Order order)
         {
             var query = @"
-                    Insert Into `Order`(RestaurantId, CustomerId, Amount, Quantity, Status, StatusCode, DateCreated, DateUpdated)
-                    Values(@RestaurantId, @CustomerId, @Amount, @Quantity, @Status, @StatusCode, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+                    Insert Into `Order`(RestaurantId, CustomerId, TransactionId, Amount, Quantity, Status, StatusCode, DateCreated, DateUpdated)
+                    Values(@RestaurantId, @CustomerId, @TransactionId, @Amount, @Quantity, @Status, @StatusCode, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
                     SELECT LAST_INSERT_ID();
                     ;";
 
@@ -146,6 +168,7 @@ namespace meally_api.Data
             {
                 order.Restaurant.RestaurantId,
                 order.Customer.CustomerId,
+                order.TransactionId,
                 order.Amount,
                 order.Quantity,
                 order.Status,

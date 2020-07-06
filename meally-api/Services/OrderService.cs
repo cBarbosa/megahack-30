@@ -66,6 +66,10 @@ namespace meally_api.Services
                 {
                     RestaurantId = order.RestaurantId
                 },
+                Amount = order.Amount,
+                Quantity = order.Quantity,
+                Status = 0,
+                TransactionId = order.TransactionId,
                 Items = order.Items.Select(x => new OrderItems
                 {
                     Amount = x.Amount,

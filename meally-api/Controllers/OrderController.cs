@@ -39,7 +39,7 @@ namespace meally_api.Controllers
             try
             {
                 return Ok(orderService.Insert(order));
-            } catch { }
+            } catch(System.Exception ex) { System.Console.WriteLine(ex.Message); }
 
             return BadRequest("Order was not registered");
         }

@@ -1,0 +1,19 @@
+<div class="ion-padding custom-skeleton" *ngIf="!queue">
+  <app-loading></app-loading>
+</div>
+
+<div *ngIf="queue">
+  <ion-searchbar placeholder="Filtrar..."></ion-searchbar>
+  <ion-list>
+    <ion-item class="clickable" *ngFor="let item of queue" >
+      <h1 slot="start">
+        <app-order-status-badge [status]="item.status"></app-order-status-badge>
+      </h1>
+      <ion-label>
+        <strong>Phone: {{ item.phone }}</strong><br>
+        <small>{{ item.dateCreated | date: 'dd/MM/yyyy HH:mm' }}</small><br>
+      </ion-label>
+      <h1 slot="end">ETA: {{ item.eta | date: 'dd/MM/yyyy HH:mm' }}</h1>
+    </ion-item>
+  </ion-list>
+</div>
